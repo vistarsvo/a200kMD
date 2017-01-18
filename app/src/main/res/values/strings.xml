@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Анекдоты, Афоризмы и цитаты 200к</string>
+    <string name="action_settings">Настройки</string>
+    <string name="initError">Возникла ошибка инициализации приложения!</string>
+    <string name="errorTitle">Возникла ошибка</string>
+    <string name="errorFreeSpace">Недостаточно свободного пространства для запуска приложения. Минимально необходимо 100Мб, а желательно больше...</string>
+    <string name="initDB">Подготовка базы данных</string>
+
+    <string name="section_format">Страница %1$d</string>
+    <string name="skip">Пропустить</string>
+    <string name="finish">Конец</string>
+
+    <string name="MainMenu">Категории</string>
+    <string name="Favorites">Избранное</string>
+    <string name="Search">Поиск</string>
+    <string name="Settings">Настройки</string>
+</resources>
