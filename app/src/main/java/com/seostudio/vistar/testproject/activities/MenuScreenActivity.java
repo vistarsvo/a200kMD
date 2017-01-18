@@ -6,8 +6,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.seostudio.vistar.testproject.R;
 
@@ -40,7 +44,49 @@ public class MenuScreenActivity extends AppCompatActivity  {
 
         tabLayout = (TabLayout) findViewById(R.id.tabanim_tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+
+        setupTabIcons();
     }
+
+    private void setupTabIcons() {
+        tabLayout.getTabAt(0).setCustomView(R.layout.custom_tab);
+        tabLayout.getTabAt(1).setCustomView(R.layout.custom_tab);
+        tabLayout.getTabAt(2).setCustomView(R.layout.custom_tab);
+        tabLayout.getTabAt(3).setCustomView(R.layout.custom_tab);
+
+        View tab1_view = tabLayout.getTabAt(0).getCustomView();
+        TextView tab1_title = (TextView) tab1_view.findViewById(R.id.tabContent);
+        ImageView tab1_img = (ImageView) tab1_view.findViewById(R.id.tabImage);
+        tab1_img.setImageResource(R.drawable.ic_tab_menu);
+        tab1_title.setText(getString(R.string.MainMenu));
+
+        View tab2_view = tabLayout.getTabAt(1).getCustomView();
+        TextView tab2_title = (TextView) tab2_view.findViewById(R.id.tabContent);
+        ImageView tab2_img = (ImageView) tab2_view.findViewById(R.id.tabImage);
+        tab2_img.setImageResource(R.drawable.ic_tab_favorites);
+        tab2_title.setText(getString(R.string.Favorites));
+
+        View tab3_view = tabLayout.getTabAt(2).getCustomView();
+        TextView tab3_title = (TextView) tab3_view.findViewById(R.id.tabContent);
+        ImageView tab3_img = (ImageView) tab3_view.findViewById(R.id.tabImage);
+        tab3_img.setImageResource(R.drawable.ic_tab_search);
+        tab3_title.setText(getString(R.string.Search));
+
+        View tab4_view = tabLayout.getTabAt(3).getCustomView();
+        TextView tab4_title = (TextView) tab4_view.findViewById(R.id.tabContent);
+        ImageView tab4_img = (ImageView) tab4_view.findViewById(R.id.tabImage);
+        tab4_img.setImageResource(R.drawable.ic_tab_options);
+        tab4_title.setText(getString(R.string.Settings));
+
+
+
+
+
+        //ImageView img1 = (ImageView) tab1_view.findViewById(R.id.img);
+
+    }
+
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());

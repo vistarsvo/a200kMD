@@ -5,9 +5,11 @@
     android:id="@+id/card_view"
     android:layout_width="80dp"
     android:layout_height="wrap_content"
-    card_view:cardUseCompatPadding="true"
-    card_view:cardCornerRadius="8dp"
-    android:layout_marginBottom="16dp">
+    card_view:cardCornerRadius="0dp"
+    card_view:cardUseCompatPadding="false"
+    card_view:cardElevation="0dp"
+    android:layout_marginBottom="16dp"
+    card_view:cardBackgroundColor="@color/white_trans80">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,11 +17,11 @@
 
         <ImageView
             android:id="@+id/menu_item_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:contentDescription="@string/action_settings"
             android:src="@drawable/ic_flight_24dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="fitCenter" />
 
         <TextView
             android:id="@+id/menu_item_name"
@@ -27,13 +29,26 @@
             android:layout_height="wrap_content"
             android:textSize="13sp"
             android:text="NAME"
-            android:textColor="@color/pink"
+            android:textColor="@color/blue"
             android:gravity="center"
             android:layout_below="@+id/menu_item_picture"
-            android:paddingBottom="8dp"
+            android:paddingBottom="16dp"
             android:paddingTop="8dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/black_overlay"/>
+
+            android:layout_alignParentBottom="true" />
+
+        <TextView
+            android:id="@+id/menu_item_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="0 000"
+            android:textColor="@color/blue_grey"
+            android:gravity="center"
+            android:layout_below="@+id/menu_item_picture"
+            android:paddingBottom="5dp"
+            android:paddingTop="8dp"
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
 

@@ -16,14 +16,18 @@
             android:id="@+id/tabanim_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/toolbar_color"
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabanim_tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="@dimen/custom_tab_layout_height"
+            app:tabIndicatorColor="@android:color/holo_blue_bright"
+            app:tabMode="scrollable"
+            app:tabGravity="fill"
+            android:background="@color/tab_color" />
 
     </android.support.design.widget.AppBarLayout>
 

@@ -7,6 +7,15 @@ public class MenuItem {
     private int active;
     private int sort;
     private int themeid;
+    private String cnt;
+
+    public String getCnt() {
+        return cnt;
+    }
+
+    public void setCnt(String cnt) {
+        this.cnt = cnt;
+    }
 
     public int getThemeId() {
         return themeid;

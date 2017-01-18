@@ -32,6 +32,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     @Override
     public void onBindViewHolder(RecyclerViewHolders holder, int position) {
         holder.itemName.setText(itemList.get(position).getShortName());
+        holder.itemCount.setText(itemList.get(position).getCnt());
         int drawableResourceId = context.getResources().getIdentifier("chapter_" + Integer.toString(itemList.get(position).getId()), "mipmap", context.getPackageName());
         holder.itemPicture.setImageResource(drawableResourceId);
         //holder.itemPicture.setImageResource(itemList.get(position).getPicture());

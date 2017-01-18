@@ -11,12 +11,14 @@ import com.seostudio.vistar.testproject.R;
 public class RecyclerViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     public TextView itemName;
+    public TextView itemCount;
     public ImageView itemPicture;
 
     public RecyclerViewHolders(View itemView) {
         super(itemView);
         itemView.setOnClickListener(this);
         itemName = (TextView)itemView.findViewById(R.id.menu_item_name);
+        itemCount = (TextView)itemView.findViewById(R.id.menu_item_count);
         itemPicture = (ImageView)itemView.findViewById(R.id.menu_item_picture);
     }
 

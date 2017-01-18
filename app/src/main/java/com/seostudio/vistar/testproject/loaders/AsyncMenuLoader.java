@@ -34,7 +34,7 @@ public class AsyncMenuLoader extends AsyncTaskLoader<MenuItemCollection> {
                 menuItem = new MenuItem();
                 menuItem.setId(cursor.getInt(0));
                 menuItem.setActive(cursor.getInt(1));
-                //menuItem.setCount(cursor.getInt(2));
+                menuItem.setCnt(cursor.getString(2));
                 menuItem.setFullName(cursor.getString(3));
                 menuItem.setShortName(cursor.getString(4));
                 menuItem.setSort(cursor.getInt(5));
