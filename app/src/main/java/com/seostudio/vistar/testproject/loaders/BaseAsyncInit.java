@@ -10,6 +10,7 @@ import android.widget.ViewSwitcher;
 
 import com.seostudio.vistar.testproject.R;
 import com.seostudio.vistar.testproject.activities.StartScreenActivity;
+import com.seostudio.vistar.testproject.handlers.DBThemesHendler;
 import com.seostudio.vistar.testproject.models.PreferencesManager;
 
 import java.io.FileOutputStream;
@@ -61,17 +62,24 @@ public class BaseAsyncInit extends AsyncTask
                         int counter = 0;
                         while ((length = myInput.read(buffer)) > 0){
                             myOutput.write(buffer, 0, length);
-                            publishProgress(counter / (44347 / 100));
+                            publishProgress(counter / (85789 / 100));
                             counter++;
+                            //System.out.println("COUNTER: " + Integer.toString(counter));
                         }
                         myOutput.flush();
                         myOutput.close();
                         myInput.close();
+                        System.out.println("UPDATING COUNTS!");
+                        DBThemesHendler.ThemesAnecdotsCountUpdate(startScreenActivity.getApplicationContext());
+
                         preferencesManager.setIsFirstRun(false);
+
                     } catch (IOException e) {
                         hasError = this.startScreenActivity.getResources().getString(R.string.initError);
                     }
                 } else {
+                    publishProgress(100);
+                    DBThemesHendler.ThemesAnecdotsCountUpdate(startScreenActivity.getApplicationContext());
                     //System.out.println("Not first run");
                     //hasError = "Not first run";
                 }

@@ -14,4 +14,9 @@
     <string name="Favorites">Избранное</string>
     <string name="Search">Поиск</string>
     <string name="Settings">Настройки</string>
+    <string name="switchingAnekdots">Переключение анекдотов</string>
+    <string name="opEnableSwap">Переключение жестом перелистывания</string>
+    <string name="opEnableSide">Переключение касанием краев экрана</string>
+    <string name="otherOptions">Другое</string>
+    <string name="opEnableCensor">Проверять цензурой</string>
 </resources>
