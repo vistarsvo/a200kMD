@@ -35,6 +35,31 @@ public class PreferencesManager {
         return this.mSharedPreferences.edit().putBoolean("isIntroRun", val).commit();
     }
 
+    public float getSingleReadFontSize() {
+        return this.mSharedPreferences.getFloat("singleReadFontSize", 13);
+    }
+
+    public boolean setSingleReadFontSize(float val) {
+        return this.mSharedPreferences.edit().putFloat("singleReadFontSize", val).commit();
+    }
+
+    public String getString(String key) {
+        return this.mSharedPreferences.getString("key", "");
+    }
+
+    public boolean setString(String key, String value) {
+        return this.mSharedPreferences.edit().putString(key, value).commit();
+    }
+
+    public int getInt(String key) {
+        return this.mSharedPreferences.getInt("key", -1);
+    }
+
+    public boolean setInt(String key, int value) {
+        return this.mSharedPreferences.edit().putInt(key, value).commit();
+    }
+
+
     public int getDbVer() {
         return this.dbVer;
     }
