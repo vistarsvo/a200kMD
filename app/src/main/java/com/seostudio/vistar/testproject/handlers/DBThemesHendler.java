@@ -18,7 +18,6 @@ public class DBThemesHendler {
             do {
                 int id = cursor.getInt(0);
                 query = "UPDATE themes SET cnt = (select COUNT(*) FROM anekdots_" + Integer.toString(id) + ") where theme_id = " + Integer.toString(id);
-                System.out.println(query);
                 db.execSQL(query);
             } while (cursor.moveToNext());
         }

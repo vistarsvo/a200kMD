@@ -52,7 +52,7 @@ public class PreferencesManager {
     }
 
     public int getInt(String key) {
-        return this.mSharedPreferences.getInt("key", -1);
+        return this.mSharedPreferences.getInt(key, -1);
     }
 
     public boolean setInt(String key, int value) {

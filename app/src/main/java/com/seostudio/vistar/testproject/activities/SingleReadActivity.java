@@ -27,12 +27,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.seostudio.vistar.testproject.R;
+import com.seostudio.vistar.testproject.loaders.AsyncAnekdotLoader;
 import com.seostudio.vistar.testproject.models.AnekdotItem;
 import com.seostudio.vistar.testproject.models.PreferencesManager;
+import com.seostudio.vistar.testproject.models.collections.AnekdotItemCollection;
 
 public class SingleReadActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        LoaderManager.LoaderCallbacks<AnekdotItem>{
+        LoaderManager.LoaderCallbacks<AnekdotItemCollection> {
 
     private TextView singleReadTextView;
     private ScaleGestureDetector scaleGestureDetector;
@@ -45,7 +47,7 @@ public class SingleReadActivity extends AppCompatActivity
     private String theme_full = "";
 
     public static final int LOADER_ID = 2;
-    private Loader<AnekdotItem> mLoader;
+    private Loader<AnekdotItemCollection> mLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +93,7 @@ public class SingleReadActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         theme_id = intent.getIntExtra("READ_THEME_ID", 1);
-        theme_cnt = intent.getIntExtra("READ_THEME_COUNT", 1);
+        theme_cnt = Integer.parseInt(intent.getStringExtra("READ_THEME_COUNT"));
         theme_short = intent.getStringExtra("READ_THEME_SHORT");
         theme_full = intent.getStringExtra("READ_THEME_FULL");
 
@@ -107,44 +109,86 @@ public class SingleReadActivity extends AppCompatActivity
         int last = preferencesManager.getInt("theme_last_readed_" + Integer.toString(theme_id));
         String theme_id_str = Integer.toString(theme_id);
         String query;
+        String field = "an.id, an.active, an.anekdot_text";
         if (last < 1) {
             // First Time
-            query = "SELECT * FROM anekdots_" + theme_id_str + " WHERE active = 1 ORDER by id LIMIT 1";
+            query = " SELECT " + field + " " +
+                    //"  ( SELECT COUNT(*) FROM anekdots_" + theme_id_str + " WHERE id < an.id ) as num " +
+                    " FROM anekdots_" + theme_id_str + " AS an " +
+                    " WHERE an.active = 1 " +
+                    " ORDER by an.id " +
+                    " LIMIT 1";
         } else {
             // Has Remembered value
             if (vector == 1) {
-                query = "SELECT * FROM anekdots_" + theme_id_str + " WHERE id > " + Integer.toString(last) + " active = 1 ORDER by id LIMIT 1";
+                // NEXT
+                query = " SELECT " + field + " " +
+                        //"  ( SELECT COUNT(*) FROM anekdots_" + theme_id_str + " WHERE id < an.id ) as num " +
+                        " FROM anekdots_" + theme_id_str + " AS an " +
+                        " WHERE " +
+                        "    (an.id > " + Integer.toString(last) + " AND an.active = 1 ) " +
+                        " OR an.id = (SELECT MAX(id) FROM anekdots_" + theme_id_str + " WHERE active = 1) " +
+                        " ORDER by an.id LIMIT 1";
+            } else if (vector == 0) {
+                // EXACT
+                query = " SELECT " + field + " " +
+                        //"  ( SELECT COUNT(*) FROM anekdots_" + theme_id_str + " WHERE id < an.id ) as num " +
+                        " FROM anekdots_" + theme_id_str + " AS an " +
+                        " WHERE " +
+                        "   an.id >= " + Integer.toString(last) + " AND an.active = 1 " +
+                        " ORDER by an.id " +
+                        " LIMIT 1";
             } else {
-                query = "SELECT * FROM anekdots_" + theme_id_str + " WHERE id < " + Integer.toString(last) + " active = 1 ORDER by -id LIMIT 1";
+                //PREV
+                query = " SELECT " + field + " " +
+                        // "  ( SELECT COUNT(*) FROM anekdots_" + theme_id_str + " WHERE id < an.id ) as num " +
+                        " FROM anekdots_" + theme_id_str + " AS an " +
+                        " WHERE " +
+                        "   (an.id < " + Integer.toString(last) + " AND an.active = 1) " +
+                        " OR an.id = (SELECT MIN(id) FROM anekdots_" + theme_id_str + " WHERE active = 1) " +
+                        " ORDER by -an.id LIMIT 1";
             }
         }
         Bundle bundle = new Bundle();
+        bundle.putInt("count", 1);
         bundle.putString("query", query);
-        mLoader = getSupportLoaderManager().initLoader(LOADER_ID, bundle, this);
+        if (mLoader == null) {
+            mLoader = getSupportLoaderManager().initLoader(LOADER_ID, bundle, this);
+        } else {
+            getSupportLoaderManager().restartLoader(LOADER_ID, bundle, this);
+        }
+
     }
 
     @Override
-    public Loader<AnekdotItem> onCreateLoader(int id, Bundle args) {
-        Loader<AnekdotItem> mLoader = null;
+    public Loader<AnekdotItemCollection> onCreateLoader(int id, Bundle args) {
+        Loader<AnekdotItemCollection> mLoader = null;
         if (id == LOADER_ID) {
-            //mLoader = new AsyncAnekdotLoader(this.getActivity(), args);
+            mLoader = new AsyncAnekdotLoader(this, args);
         }
         return mLoader;
     }
 
     // Вызовется, когда загрузчик закончит свою работу. Вызывается в основном потоке
     @Override
-    public void onLoadFinished(Loader<AnekdotItem> loader, AnekdotItem anekdotItem) {
+    public void onLoadFinished(Loader<AnekdotItemCollection> loader, AnekdotItemCollection anekdotItemCollection) {
         switch (loader.getId()) {
             case LOADER_ID:
-                singleReadTextView.setText("Yo");
+                AnekdotItem anekdotItem = anekdotItemCollection.getAnekdotItems().get(0);
+                singleReadTextView.setText(anekdotItem.getText());
+                getSupportActionBar().setSubtitle(Integer.toString(anekdotItem.getNum()) + " из " + Integer.toString(theme_cnt));
+                singleReadTextView.setText(anekdotItem.getText());
+                if (anekdotItem.getFavorite_id() > 0 ) {
+                    singleReadTextView.append("\n FAVORITE: " + anekdotItem.getFavorite_date());
+                }
+                preferencesManager.setInt("theme_last_readed_" + Integer.toString(theme_id), anekdotItem.getId());
                 break;
         }
     }
 
     // Вызовется при уничтожении активности
     @Override
-    public void onLoaderReset(Loader<AnekdotItem> loader) {
+    public void onLoaderReset(Loader<AnekdotItemCollection> loader) {
         mLoader.cancelLoad();
     }
 
@@ -226,19 +270,19 @@ public class SingleReadActivity extends AppCompatActivity
     private GestureDetector.SimpleOnGestureListener onGestureListener = new GestureDetector.SimpleOnGestureListener() {
         @Override
         public boolean onDoubleTap(MotionEvent e) {
-            Log.i("gestureDebug333", "doubleTapped:" + e);
+            //Log.i("gestureDebug333", "doubleTapped:" + e);
             return super.onDoubleTap(e);
         }
 
         @Override
         public boolean onDoubleTapEvent(MotionEvent e) {
-            Log.i("gestureDebug333", "doubleTappedEvent:" + e);
+            //Log.i("gestureDebug333", "doubleTappedEvent:" + e);
             return super.onDoubleTapEvent(e);
         }
 
         @Override
         public boolean onDown(MotionEvent e) {
-            Log.i("gestureDebug333", "onDown:" + e);
+            //Log.i("gestureDebug333", "onDown:" + e);
             return super.onDown(e);
         }
 

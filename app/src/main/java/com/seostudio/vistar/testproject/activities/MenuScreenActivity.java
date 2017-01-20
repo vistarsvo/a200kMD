@@ -2,6 +2,7 @@ package com.seostudio.vistar.testproject.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
@@ -16,17 +17,25 @@ import android.widget.TextView;
 
 import com.seostudio.vistar.testproject.R;
 
+import com.seostudio.vistar.testproject.adapters.RecyclerViewAdapter;
 import com.seostudio.vistar.testproject.adapters.ViewPagerAdapter;
 import com.seostudio.vistar.testproject.fragments.FavoritesFragment;
 import com.seostudio.vistar.testproject.fragments.MenuFragment;
 import com.seostudio.vistar.testproject.fragments.OptionsFragment;
 import com.seostudio.vistar.testproject.fragments.SearchFragment;
+import com.seostudio.vistar.testproject.loaders.AsyncCensorLoader;
+import com.seostudio.vistar.testproject.loaders.AsyncMenuLoader;
+import com.seostudio.vistar.testproject.models.AnekdotItem;
+import com.seostudio.vistar.testproject.models.CensorItem;
+import com.seostudio.vistar.testproject.models.collections.CensorItemCollection;
 import com.seostudio.vistar.testproject.models.collections.MenuItemCollection;
 
 
-public class MenuScreenActivity extends AppCompatActivity  {
+public class MenuScreenActivity extends AppCompatActivity
+implements  LoaderManager.LoaderCallbacks<CensorItemCollection> {
 
-    private Loader<MenuItemCollection> mLoader;
+    private Loader<CensorItemCollection> mLoader;
+    public static final int LOADER_ID = 3;
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -52,9 +61,13 @@ public class MenuScreenActivity extends AppCompatActivity  {
         tabLayout = (TabLayout) findViewById(R.id.tabanim_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-
         setupTabIcons();
+
+        Bundle bundle = new Bundle();
+        mLoader = getSupportLoaderManager().initLoader(LOADER_ID, bundle, this);
     }
+
+
 
 
     private void setupTabIcons() {
@@ -120,6 +133,31 @@ public class MenuScreenActivity extends AppCompatActivity  {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Loader<CensorItemCollection> onCreateLoader(int id, Bundle args) {
+        Loader<CensorItemCollection> mLoader = null;
+        if (id == LOADER_ID) {
+            mLoader = new AsyncCensorLoader(this, args);
+        }
+        return mLoader;
+    }
+
+    // Вызовется, когда загрузчик закончит свою работу. Вызывается в основном потоке
+    @Override
+    public void onLoadFinished(Loader<CensorItemCollection> loader, CensorItemCollection censorItemCollection) {
+        switch (loader.getId()) {
+            case LOADER_ID:
+                CensorItemCollection.lastLoaded = censorItemCollection;
+                break;
+        }
+    }
+
+    // Вызовется при уничтожении активности
+    @Override
+    public void onLoaderReset(Loader<CensorItemCollection> loader) {
+        mLoader.cancelLoad();
     }
 
 }
