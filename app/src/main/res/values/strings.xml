@@ -24,4 +24,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="contentLoading">public class simpleOnScaleGestureListener extends         SimpleOnScaleGestureListener {      @Override     public boolean onScale(ScaleGestureDetector detector) {         // TODO Auto-generated method stub         float size = scaleGesture.getTextSize();         Log.d(\"TextSizeStart\", String.valueOf(size));          float factor = detector.getScaleFactor();         Log.d(\"Factor\", String.valueOf(factor));           float product = size*factor;         Log.d(\"TextSize\", String.valueOf(product));         scaleGesture.setTextSize(TypedValue.COMPLEX_UNIT_PX, product);          size = scaleGesture.getTextSize();         Log.d(\"TextSizeEnd\", String.valueOf(size));         return true;     } }</string>
+    <string name="add_to_favorite">Add to favorite</string>
+
+    <string name="title_activity_custom_share">Custom share</string>
+    <string name="iv_content_desc">App icon</string>
+
 </resources>

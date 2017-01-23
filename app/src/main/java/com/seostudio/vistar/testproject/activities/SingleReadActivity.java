@@ -3,6 +3,8 @@ package com.seostudio.vistar.testproject.activities;
 
 
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,10 +29,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.seostudio.vistar.testproject.R;
+import com.seostudio.vistar.testproject.handlers.AnekdotItemHandler;
 import com.seostudio.vistar.testproject.loaders.AsyncAnekdotLoader;
 import com.seostudio.vistar.testproject.models.AnekdotItem;
 import com.seostudio.vistar.testproject.models.PreferencesManager;
 import com.seostudio.vistar.testproject.models.collections.AnekdotItemCollection;
+import com.seostudio.vistar.testproject.utils.IntentFilterUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class SingleReadActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -48,6 +56,7 @@ public class SingleReadActivity extends AppCompatActivity
 
     public static final int LOADER_ID = 2;
     private Loader<AnekdotItemCollection> mLoader;
+    private AnekdotItem anekdotItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +64,9 @@ public class SingleReadActivity extends AppCompatActivity
         preferencesManager = new PreferencesManager(this);
         setContentView(R.layout.activity_single_read);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -97,14 +108,15 @@ public class SingleReadActivity extends AppCompatActivity
         theme_short = intent.getStringExtra("READ_THEME_SHORT");
         theme_full = intent.getStringExtra("READ_THEME_FULL");
 
-
         getSupportActionBar().setTitle(theme_full);
         getSupportActionBar().setSubtitle("0 из " + Integer.toString(theme_cnt));
-
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         readSingleAnekdot(0);
     }
 
+    // Read Anekdot. Last readed or Prev-next
+    // Run Async Data Loader
     private void readSingleAnekdot(int vector) {
         int last = preferencesManager.getInt("theme_last_readed_" + Integer.toString(theme_id));
         String theme_id_str = Integer.toString(theme_id);
@@ -174,7 +186,7 @@ public class SingleReadActivity extends AppCompatActivity
     public void onLoadFinished(Loader<AnekdotItemCollection> loader, AnekdotItemCollection anekdotItemCollection) {
         switch (loader.getId()) {
             case LOADER_ID:
-                AnekdotItem anekdotItem = anekdotItemCollection.getAnekdotItems().get(0);
+                anekdotItem = anekdotItemCollection.getAnekdotItems().get(0);
                 singleReadTextView.setText(anekdotItem.getText());
                 getSupportActionBar().setSubtitle(Integer.toString(anekdotItem.getNum()) + " из " + Integer.toString(theme_cnt));
                 singleReadTextView.setText(anekdotItem.getText());
@@ -222,9 +234,48 @@ public class SingleReadActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.menu_addtofavorite) {
+            addToFavorite();
+            readSingleAnekdot(0);
+        } else if (id == R.id.menu_shareitem) {
+            callShareDialog();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private Intent getMessageIntent() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
+        intent.putExtra(Intent.EXTRA_TEXT, "Message");
+        intent.setType("text/plain");
+        return intent;
+    }
+
+    private void callShareDialog() {
+        Intent messageIntent = getMessageIntent();
+        Collection<ResolveInfo> allMatching = IntentFilterUtils.findAllMatching(getPackageManager(), messageIntent);
+        startCustomPicker(messageIntent, allMatching);
+    }
+
+    private void startCustomPicker(Intent messageIntent, Collection<ResolveInfo> allMatching) {
+        Intent shareIntent = new Intent(this, CustomShareActivity.class);
+        shareIntent.putExtra(CustomShareActivity.MESSAGE_INTENT_EXTRA, messageIntent);
+        shareIntent.putParcelableArrayListExtra(CustomShareActivity.APPS_LIST_EXTRA, new ArrayList<>(allMatching));
+        startActivity(shareIntent);
+    }
+
+    private boolean addToFavorite() {
+        // Not in favorites
+        if (anekdotItem.getFavorite_id() == 0) {
+            AnekdotItemHandler.AnekdotFavoriteAdd(anekdotItem, this);
+            Toast.makeText(SingleReadActivity.this, "Добавлено в избранное", Toast.LENGTH_SHORT).show();
+        } else {
+        // In favorites
+            AnekdotItemHandler.AnekdotFavoriteRemove(anekdotItem, this);
+            Toast.makeText(SingleReadActivity.this, "Удалено из избранного", Toast.LENGTH_SHORT).show();
+        }
+        return true;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -252,17 +303,30 @@ public class SingleReadActivity extends AppCompatActivity
         return true;
     }
 
+
+    float ScaleText = 32;
+    float product = 32;
     public class simpleOnScaleGestureListener extends
             ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            float size = singleReadTextView.getTextSize();
+            float size = ScaleText;//singleReadTextView.getTextSize();
             float factor = detector.getScaleFactor();
-            float product = size*factor;
-            if (product < 8) product = 8;
-            if (product > 48) product = 48;
-            singleReadTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, product);
+            if (factor < 1) factor = 0.95f;
+            if (factor > 1) factor = 1.05f;
+            product = (float) Math.round(size*factor * 100) / 100;
+            if (product < 6f) product = 6f;
+            if (product > 96f) product = 96f;
+            //singleReadTextView.setText(Float.toString(product));
+            ScaleText = product;
+            product = (float) Math.round(product);
+            //singleReadTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, product);
+            //singleReadTextView.setTextSize(product);
+            //Log.d("SIZE", ">> " + Float.toString(product));
             preferencesManager.setSingleReadFontSize(product);
+
+
+
             return true;
         }
     }
@@ -308,7 +372,9 @@ public class SingleReadActivity extends AppCompatActivity
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            final int scrollAmount = singleReadTextView.getLayout().getLineTop(singleReadTextView.getLineCount()) - singleReadTextView.getHeight();
+            int scrollAmount = 0;
+            int linesCount = singleReadTextView.getLineCount();
+            scrollAmount = singleReadTextView.getLayout().getLineTop(linesCount) - singleReadTextView.getHeight();
 
             int nowScroll = singleReadTextView.getScrollY();
             float newScroll = nowScroll + distanceY;
@@ -334,5 +400,4 @@ public class SingleReadActivity extends AppCompatActivity
             return super.onSingleTapUp(e);
         }
     };
-
 }

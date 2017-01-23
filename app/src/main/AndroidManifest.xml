@@ -31,6 +31,10 @@
             android:name=".activities.SingleReadActivity"
             android:label="@string/title_activity_single_read"
             android:theme="@style/MyTheme"></activity>
+        <activity
+            android:name=".activities.CustomShareActivity"
+            android:label="@string/title_activity_custom_share"
+            android:theme="@style/MyTheme"></activity>
     </application>
 
 </manifest>

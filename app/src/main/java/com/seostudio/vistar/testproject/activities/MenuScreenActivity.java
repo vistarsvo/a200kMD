@@ -67,9 +67,8 @@ implements  LoaderManager.LoaderCallbacks<CensorItemCollection> {
         mLoader = getSupportLoaderManager().initLoader(LOADER_ID, bundle, this);
     }
 
-
-
-
+    //TODO Refactor method
+    // Nice TAB icons
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setCustomView(R.layout.custom_tab);
         tabLayout.getTabAt(1).setCustomView(R.layout.custom_tab);
@@ -102,14 +101,13 @@ implements  LoaderManager.LoaderCallbacks<CensorItemCollection> {
 
     }
 
-
+    // View Pager Fragments gor TABs
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new MenuFragment(), getString(R.string.MainMenu));
         adapter.addFragment(new FavoritesFragment(), getString(R.string.Favorites));
         adapter.addFragment(new SearchFragment(), getString(R.string.Search));
         adapter.addFragment(new OptionsFragment(), getString(R.string.Settings));
-
         viewPager.setAdapter(adapter);
     }
 

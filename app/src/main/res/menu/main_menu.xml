@@ -14,12 +14,12 @@
         android:title="Search"
         android:icon="@drawable/ic_tab_options"
         app:showAsAction="ifRoom"
-    ></item>
+    />
     <item
         android:id="@+id/action_user"
         android:orderInCategory="300"
         android:title="User"
         android:icon="@drawable/ic_tab_menu"
-        app:showAsAction="ifRoom"></item>
+        app:showAsAction="ifRoom" />
 
 </menu>
