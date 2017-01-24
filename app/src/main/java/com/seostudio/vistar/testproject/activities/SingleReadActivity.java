@@ -4,14 +4,12 @@ package com.seostudio.vistar.testproject.activities;
 
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -38,7 +36,6 @@ import com.seostudio.vistar.testproject.utils.IntentFilterUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class SingleReadActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -101,6 +98,7 @@ public class SingleReadActivity extends AppCompatActivity
                 return true;
             }
         });
+        singleReadTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, preferencesManager.getSingleReadFontSize());
 
         Intent intent = getIntent();
         theme_id = intent.getIntExtra("READ_THEME_ID", 1);
@@ -119,48 +117,7 @@ public class SingleReadActivity extends AppCompatActivity
     // Run Async Data Loader
     private void readSingleAnekdot(int vector) {
         int last = preferencesManager.getInt("theme_last_readed_" + Integer.toString(theme_id));
-        String theme_id_str = Integer.toString(theme_id);
-        String query;
-        String field = "an.id, an.active, an.anekdot_text";
-        if (last < 1) {
-            // First Time
-            query = " SELECT " + field + " " +
-                    //"  ( SELECT COUNT(*) FROM anekdots_" + theme_id_str + " WHERE id < an.id ) as num " +
-                    " FROM anekdots_" + theme_id_str + " AS an " +
-                    " WHERE an.active = 1 " +
-                    " ORDER by an.id " +
-                    " LIMIT 1";
-        } else {
-            // Has Remembered value
-            if (vector == 1) {
-                // NEXT
-                query = " SELECT " + field + " " +
-                        //"  ( SELECT COUNT(*) FROM anekdots_" + theme_id_str + " WHERE id < an.id ) as num " +
-                        " FROM anekdots_" + theme_id_str + " AS an " +
-                        " WHERE " +
-                        "    (an.id > " + Integer.toString(last) + " AND an.active = 1 ) " +
-                        " OR an.id = (SELECT MAX(id) FROM anekdots_" + theme_id_str + " WHERE active = 1) " +
-                        " ORDER by an.id LIMIT 1";
-            } else if (vector == 0) {
-                // EXACT
-                query = " SELECT " + field + " " +
-                        //"  ( SELECT COUNT(*) FROM anekdots_" + theme_id_str + " WHERE id < an.id ) as num " +
-                        " FROM anekdots_" + theme_id_str + " AS an " +
-                        " WHERE " +
-                        "   an.id >= " + Integer.toString(last) + " AND an.active = 1 " +
-                        " ORDER by an.id " +
-                        " LIMIT 1";
-            } else {
-                //PREV
-                query = " SELECT " + field + " " +
-                        // "  ( SELECT COUNT(*) FROM anekdots_" + theme_id_str + " WHERE id < an.id ) as num " +
-                        " FROM anekdots_" + theme_id_str + " AS an " +
-                        " WHERE " +
-                        "   (an.id < " + Integer.toString(last) + " AND an.active = 1) " +
-                        " OR an.id = (SELECT MIN(id) FROM anekdots_" + theme_id_str + " WHERE active = 1) " +
-                        " ORDER by -an.id LIMIT 1";
-            }
-        }
+        String query = AnekdotItemHandler.anekdotGetQuery(last, vector, theme_id);
         Bundle bundle = new Bundle();
         bundle.putInt("count", 1);
         bundle.putString("query", query);
@@ -194,6 +151,7 @@ public class SingleReadActivity extends AppCompatActivity
                     singleReadTextView.append("\n FAVORITE: " + anekdotItem.getFavorite_date());
                 }
                 preferencesManager.setInt("theme_last_readed_" + Integer.toString(theme_id), anekdotItem.getId());
+                singleReadTextView.setScrollY(0);
                 break;
         }
     }
@@ -268,11 +226,11 @@ public class SingleReadActivity extends AppCompatActivity
     private boolean addToFavorite() {
         // Not in favorites
         if (anekdotItem.getFavorite_id() == 0) {
-            AnekdotItemHandler.AnekdotFavoriteAdd(anekdotItem, this);
+            AnekdotItemHandler.anekdotFavoriteAdd(anekdotItem, this);
             Toast.makeText(SingleReadActivity.this, "Добавлено в избранное", Toast.LENGTH_SHORT).show();
         } else {
         // In favorites
-            AnekdotItemHandler.AnekdotFavoriteRemove(anekdotItem, this);
+            AnekdotItemHandler.anekdotFavoriteRemove(anekdotItem, this);
             Toast.makeText(SingleReadActivity.this, "Удалено из избранного", Toast.LENGTH_SHORT).show();
         }
         return true;
@@ -306,27 +264,22 @@ public class SingleReadActivity extends AppCompatActivity
 
     float ScaleText = 32;
     float product = 32;
+    boolean canScroll = true;
     public class simpleOnScaleGestureListener extends
             ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            float size = ScaleText;//singleReadTextView.getTextSize();
+            canScroll = false;
+            float size = singleReadTextView.getTextSize();
             float factor = detector.getScaleFactor();
-            if (factor < 1) factor = 0.95f;
-            if (factor > 1) factor = 1.05f;
             product = (float) Math.round(size*factor * 100) / 100;
             if (product < 6f) product = 6f;
             if (product > 96f) product = 96f;
-            //singleReadTextView.setText(Float.toString(product));
             ScaleText = product;
             product = (float) Math.round(product);
-            //singleReadTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, product);
-            //singleReadTextView.setTextSize(product);
-            //Log.d("SIZE", ">> " + Float.toString(product));
+            singleReadTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, product);
             preferencesManager.setSingleReadFontSize(product);
-
-
-
+            canScroll = true;
             return true;
         }
     }
@@ -372,16 +325,18 @@ public class SingleReadActivity extends AppCompatActivity
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            int scrollAmount = 0;
-            int linesCount = singleReadTextView.getLineCount();
-            scrollAmount = singleReadTextView.getLayout().getLineTop(linesCount) - singleReadTextView.getHeight();
-
-            int nowScroll = singleReadTextView.getScrollY();
-            float newScroll = nowScroll + distanceY;
-
-            if (newScroll > scrollAmount + 100) newScroll = scrollAmount + 100;
-            if (newScroll < 0) newScroll = 0;
-            singleReadTextView.setScrollY(Math.round(newScroll));
+            if (canScroll) {
+                int scrollAmount = 0;
+                int linesCount = singleReadTextView.getLineCount();
+                if (linesCount > 2) {
+                    scrollAmount = singleReadTextView.getLayout().getLineTop(linesCount) - singleReadTextView.getHeight();
+                    int nowScroll = singleReadTextView.getScrollY();
+                    float newScroll = nowScroll + distanceY;
+                    if (newScroll > scrollAmount + 100) newScroll = scrollAmount + 100;
+                    if (newScroll < 0) newScroll = 0;
+                    singleReadTextView.setScrollY(Math.round(newScroll));
+                }
+            }
             return super.onScroll(e1, e2, distanceX, distanceY);
         }
 
