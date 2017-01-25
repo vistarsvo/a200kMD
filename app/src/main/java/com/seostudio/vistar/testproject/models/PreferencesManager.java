@@ -35,6 +35,14 @@ public class PreferencesManager {
         return this.mSharedPreferences.edit().putBoolean("isIntroRun", val).commit();
     }
 
+    public boolean getIsCensorOn() {
+        return this.mSharedPreferences.getBoolean("isCensorOn", true);
+    }
+
+    public boolean setIsCensorOn(boolean val) {
+        return this.mSharedPreferences.edit().putBoolean("isCensorOn", val).commit();
+    }
+
     public float getSingleReadFontSize() {
         return this.mSharedPreferences.getFloat("singleReadFontSize", 13);
     }
