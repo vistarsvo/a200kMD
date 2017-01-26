@@ -43,6 +43,22 @@ public class PreferencesManager {
         return this.mSharedPreferences.edit().putBoolean("isCensorOn", val).commit();
     }
 
+    public boolean getIsSwapOn() {
+        return this.mSharedPreferences.getBoolean("isSwapOn", true);
+    }
+
+    public boolean setIsSwapOn(boolean val) {
+        return this.mSharedPreferences.edit().putBoolean("isSwapOn", val).commit();
+    }
+
+    public boolean getIsScreenSideOn() {
+        return this.mSharedPreferences.getBoolean("IsScreenSideOn", true);
+    }
+
+    public boolean setIsScreenSideOn(boolean val) {
+        return this.mSharedPreferences.edit().putBoolean("IsScreenSideOn", val).commit();
+    }
+
     public float getSingleReadFontSize() {
         return this.mSharedPreferences.getFloat("singleReadFontSize", 13);
     }
