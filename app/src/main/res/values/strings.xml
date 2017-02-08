@@ -29,5 +29,9 @@
     <string name="title_activity_custom_share">Custom share</string>
     <string name="iv_content_desc">App icon</string>
     <string name="themesOptions">Настройки темы</string>
+    <string name="goSearch">Искать</string>
+    <string name="whatToSearch">Что искать?</string>
+    <string name="SearchAn">Поиск анекдота</string>
+    <string name="stop">Остановить</string>
 
 </resources>

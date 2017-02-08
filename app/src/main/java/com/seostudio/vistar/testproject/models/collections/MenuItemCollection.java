@@ -2,6 +2,7 @@ package com.seostudio.vistar.testproject.models.collections;
 
 import com.seostudio.vistar.testproject.models.MenuItem;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,6 +10,30 @@ final public class MenuItemCollection {
     public static MenuItemCollection lastLoaded;
 
     private List<MenuItem> menuItems = new LinkedList<MenuItem>();
+
+    public ArrayList<String> getArrayList() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("По всем категориям");
+        for (MenuItem currentMenuItem  : menuItems) {
+            list.add(currentMenuItem.getFullName());
+        }
+        return list;
+    }
+
+    public MenuItem getItemByIndex(int index) {
+        if (menuItems.contains(index)) {
+            return menuItems.get(index);
+        } else {
+            return null;
+        }
+    }
+
+    public MenuItem getItemById(int id) {
+        for (MenuItem currentMenuItem  : menuItems) {
+            if (currentMenuItem.getId() == id) return currentMenuItem;
+        }
+        return null;
+    }
 
     public List<MenuItem> getMenuItems() {
         return this.menuItems;

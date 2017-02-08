@@ -24,29 +24,30 @@ public class AsyncMenuLoader extends AsyncTaskLoader<MenuItemCollection> {
 
     @Override
     public MenuItemCollection loadInBackground() {
-        String query = "SELECT id, active, cnt, fullname, shortname, srt, theme_id FROM themes WHERE active = 1 ORDER by srt";
-        SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-        MenuItem menuItem;
-        MenuItemCollection menuItemCollection = new MenuItemCollection();
-        if (cursor.moveToFirst()) {
-            do {
-                menuItem = new MenuItem();
-                menuItem.setId(cursor.getInt(0));
-                menuItem.setActive(cursor.getInt(1));
-                menuItem.setCnt(cursor.getString(2));
-                menuItem.setFullName(cursor.getString(3));
-                menuItem.setShortName(cursor.getString(4));
-                menuItem.setSort(cursor.getInt(5));
-                menuItem.setThemeId(cursor.getInt(6));
-                menuItemCollection.addMenuItem(menuItem);
-            } while (cursor.moveToNext());
+        if (MenuItemCollection.lastLoaded == null) {
+            String query = "SELECT id, active, cnt, fullname, shortname, srt, theme_id FROM themes WHERE active = 1 ORDER by srt";
+            SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
+            Cursor cursor = db.rawQuery(query, null);
+            MenuItem menuItem;
+            MenuItemCollection menuItemCollection = new MenuItemCollection();
+            if (cursor.moveToFirst()) {
+                do {
+                    menuItem = new MenuItem();
+                    menuItem.setId(cursor.getInt(0));
+                    menuItem.setActive(cursor.getInt(1));
+                    menuItem.setCnt(cursor.getString(2));
+                    menuItem.setFullName(cursor.getString(3));
+                    menuItem.setShortName(cursor.getString(4));
+                    menuItem.setSort(cursor.getInt(5));
+                    menuItem.setThemeId(cursor.getInt(6));
+                    menuItemCollection.addMenuItem(menuItem);
+                } while (cursor.moveToNext());
+            }
+            MenuItemCollection.lastLoaded = menuItemCollection;
+            cursor.close();
+            return menuItemCollection;
+        } else {
+            return MenuItemCollection.lastLoaded;
         }
-
-        MenuItemCollection.lastLoaded = menuItemCollection;
-
-        cursor.close();
-        //db.close();
-        return menuItemCollection;
     }
 }

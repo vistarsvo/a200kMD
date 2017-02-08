@@ -4,14 +4,93 @@
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context="com.seostudio.vistar.testproject.fragments.SearchFragment">
+tools:context="com.seostudio.vistar.testproject.fragments.SearchFragment"
+    android:gravity="center">
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/Search"
-    android:textSize="40dp"
-    android:textStyle="bold"
-    android:layout_centerInParent="true"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:foregroundGravity="center">
 
+        <TextView
+            android:text="@string/SearchAn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            android:layout_weight="1"
+            android:textSize="30sp"
+            android:textAlignment="center" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/searchingText"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/activity_margin_half"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:hint="@string/whatToSearch" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/activity_margin_half"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:text="@string/goSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/goSearch"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/activity_margin_half"
+                android:layout_marginBottom="@dimen/activity_vertical_margin" />
+
+            <Button
+                android:text="@string/stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/stopSearch"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/activity_margin_half"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/serachProgress"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/prgText"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 </RelativeLayout>

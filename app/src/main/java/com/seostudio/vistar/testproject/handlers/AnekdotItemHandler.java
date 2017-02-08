@@ -9,7 +9,6 @@ import com.seostudio.vistar.testproject.utils.DateUtils;
 
 
 public class AnekdotItemHandler {
-
     public static void anekdotFavoriteAdd(AnekdotItem anekdotItem, Context context) {
         SQLiteHelper sqLiteHelper = SQLiteHelper.getInstance(context);
         int id = anekdotItem.getId();
