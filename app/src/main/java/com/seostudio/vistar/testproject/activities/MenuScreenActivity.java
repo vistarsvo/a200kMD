@@ -5,10 +5,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.content.Loader;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,18 +15,13 @@ import android.widget.TextView;
 
 import com.seostudio.vistar.testproject.R;
 
-import com.seostudio.vistar.testproject.adapters.RecyclerViewAdapter;
 import com.seostudio.vistar.testproject.adapters.ViewPagerAdapter;
 import com.seostudio.vistar.testproject.fragments.FavoritesFragment;
 import com.seostudio.vistar.testproject.fragments.MenuFragment;
 import com.seostudio.vistar.testproject.fragments.OptionsFragment;
 import com.seostudio.vistar.testproject.fragments.SearchFragment;
 import com.seostudio.vistar.testproject.loaders.AsyncCensorLoader;
-import com.seostudio.vistar.testproject.loaders.AsyncMenuLoader;
-import com.seostudio.vistar.testproject.models.AnekdotItem;
-import com.seostudio.vistar.testproject.models.CensorItem;
 import com.seostudio.vistar.testproject.models.collections.CensorItemCollection;
-import com.seostudio.vistar.testproject.models.collections.MenuItemCollection;
 
 
 public class MenuScreenActivity extends AppCompatActivity

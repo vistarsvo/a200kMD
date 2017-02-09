@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.seostudio.vistar.testproject.R;
-import com.seostudio.vistar.testproject.adapters.RecyclerViewAdapter;
+import com.seostudio.vistar.testproject.adapters.MenuItemsRecyclerAdapter;
 import com.seostudio.vistar.testproject.loaders.AsyncMenuLoader;
 import com.seostudio.vistar.testproject.models.collections.MenuItemCollection;
 
@@ -45,7 +45,7 @@ public class MenuFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
 
         lLayout = new GridLayoutManager(this.getActivity(), 4);
-        rView = (RecyclerView)this.getActivity().findViewById(R.id.recycler_view);
+        rView = (RecyclerView)this.getActivity().findViewById(R.id.menu_recycler_view);
         rView.setHasFixedSize(true);
         rView.setLayoutManager(lLayout);
 
@@ -68,7 +68,7 @@ public class MenuFragment extends Fragment
     public void onLoadFinished(Loader<MenuItemCollection> loader, MenuItemCollection menuItemCollection) {
         switch (loader.getId()) {
             case LOADER_ID:
-                RecyclerViewAdapter rcAdapter = new RecyclerViewAdapter(this.getActivity(), menuItemCollection.getMenuItems());
+                MenuItemsRecyclerAdapter rcAdapter = new MenuItemsRecyclerAdapter(this.getActivity(), menuItemCollection.getMenuItems());
                 rView.setAdapter(rcAdapter);
                 break;
         }

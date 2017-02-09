@@ -3,6 +3,7 @@ package com.seostudio.vistar.testproject.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.seostudio.vistar.testproject.R;
+import com.seostudio.vistar.testproject.activities.SearchResultScreenActivity;
 import com.seostudio.vistar.testproject.handlers.AnekdotsSearchHandler;
 import com.seostudio.vistar.testproject.loaders.AsyncMenuLoader;
 import com.seostudio.vistar.testproject.models.MenuItem;
@@ -147,6 +149,17 @@ public class SearchFragment extends Fragment
         prgText.setVisibility(View.VISIBLE);
     }
 
+    public void goSearchResultsScreen() {
+        Intent intent;
+        intent = new Intent(this.getContext(), SearchResultScreenActivity.class);
+        //intent.putExtra("READ_THEME_ID", menuItem.getThemeId());
+        //intent.putExtra("READ_THEME_SHORT", menuItem.getShortName());
+        //intent.putExtra("READ_THEME_FULL", menuItem.getFullName());
+        //intent.putExtra("READ_THEME_COUNT", menuItem.getCnt());
+        this.getContext().startActivity(intent);
+        //this.finish();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -179,13 +192,14 @@ public class SearchFragment extends Fragment
         @Override
         protected String doInBackground(String... params) {
             if (categoryInd != 0) {
-                MenuItem menuItem = MenuItemCollection.lastLoaded.getItemByIndex(categoryInd);
+                MenuItem menuItem = MenuItemCollection.lastLoaded.getItemByIndex(categoryInd - 1);
                 if (menuItem != null) {
                     exTheme = menuItem.getShortName();
                     publishProgress(exTheme);
                     AnekdotsSearchHandler.searchIntoTheme(SearchFragment.this.getContext(), menuItem.getId(), searchText);
                 } else {
-                    Toast.makeText(SearchFragment.this.getContext(), "Что-то пошло не так. попробуйте перезапустить приложение.", Toast.LENGTH_LONG).show();
+                    System.out.println("FUCK не так " + Integer.toString(categoryInd));
+                    //Toast.makeText(SearchFragment.this.getContext(), "Что-то пошло не так. попробуйте перезапустить приложение.", Toast.LENGTH_LONG).show();
                 }
             } else {
                 for (MenuItem menuItem : MenuItemCollection.lastLoaded.getMenuItems()) {
@@ -198,6 +212,7 @@ public class SearchFragment extends Fragment
                     }
                 }
             }
+            SearchFragment.this.goSearchResultsScreen();
             return null;
         }
 

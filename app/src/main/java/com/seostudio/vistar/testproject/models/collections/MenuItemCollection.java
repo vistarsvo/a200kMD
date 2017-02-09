@@ -21,15 +21,15 @@ final public class MenuItemCollection {
     }
 
     public MenuItem getItemByIndex(int index) {
-        if (menuItems.contains(index)) {
-            return menuItems.get(index);
-        } else {
+        try {
+            return this.menuItems.get( index );
+        } catch ( IndexOutOfBoundsException e ) {
             return null;
         }
     }
 
     public MenuItem getItemById(int id) {
-        for (MenuItem currentMenuItem  : menuItems) {
+        for (MenuItem currentMenuItem  : this.menuItems) {
             if (currentMenuItem.getId() == id) return currentMenuItem;
         }
         return null;

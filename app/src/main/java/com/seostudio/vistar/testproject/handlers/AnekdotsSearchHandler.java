@@ -31,6 +31,7 @@ public class AnekdotsSearchHandler {
         db = sqLiteHelper.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
+            db.beginTransaction();
             do {
                 int id = cursor.getInt(0);
                 query = "INSERT INTO search_results " +
@@ -39,6 +40,7 @@ public class AnekdotsSearchHandler {
                         "( " + Integer.toString(id) + ", " + Integer.toString(id) + ") ";
                 db.execSQL(query);
             } while (cursor.moveToNext());
+            db.endTransaction();
         }
         cursor.close();
     }
