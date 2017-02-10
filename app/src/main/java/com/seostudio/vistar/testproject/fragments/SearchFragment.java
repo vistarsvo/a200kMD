@@ -178,6 +178,7 @@ public class SearchFragment extends Fragment
 
     class SearchTask extends AsyncTask<String, String, String> {
         private String exTheme = "";
+        private int cnt = 0;
 
         @Override
         protected void onPreExecute() {
@@ -212,7 +213,13 @@ public class SearchFragment extends Fragment
                     }
                 }
             }
-            SearchFragment.this.goSearchResultsScreen();
+            publishProgress("Готовим результаты...");
+            cnt = AnekdotsSearchHandler.resultCount(SearchFragment.this.getContext());
+            publishProgress("Готовим результаты: " + String.valueOf(cnt));
+            AnekdotsSearchHandler.getResultCollection(SearchFragment.this.getContext());
+            if (cnt > 0) {
+                SearchFragment.this.goSearchResultsScreen();
+            }
             return null;
         }
 
@@ -223,6 +230,11 @@ public class SearchFragment extends Fragment
                 stopSearchButton.setVisibility(View.GONE);
             }
             unlockInterface();
+            if (cnt == 0) {
+                Toast.makeText(SearchFragment.this.getContext(), "По вашему запросу ничего не найдено :(", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(SearchFragment.this.getContext(), "OK :(", Toast.LENGTH_LONG).show();
+            }
         }
 
         protected void onProgressUpdate(String... progress) {

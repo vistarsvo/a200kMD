@@ -8,21 +8,21 @@ import java.util.List;
 public class AnekdotItemCollection {
     public static AnekdotItemCollection lastLoaded;
 
-    private List<AnekdotItem> aekdotItems = new LinkedList<AnekdotItem>();
+    private List<AnekdotItem> anekdotItems = new LinkedList<AnekdotItem>();
 
     public List<AnekdotItem> getAnekdotItems() {
-        return this.aekdotItems;
+        return this.anekdotItems;
     }
 
     public int getAnekdotsItemsCount() {
-        return this.aekdotItems.size();
+        return this.anekdotItems.size();
     }
 
-    public void addAnekdotItem(AnekdotItem censorItem) {
-        this.aekdotItems.add(censorItem);
+    public void addAnekdotItem(AnekdotItem anekdotItem) {
+        this.anekdotItems.add(anekdotItem);
     }
 
     public void clear() {
-        this.aekdotItems.clear();
+        this.anekdotItems.clear();
     }
 }
