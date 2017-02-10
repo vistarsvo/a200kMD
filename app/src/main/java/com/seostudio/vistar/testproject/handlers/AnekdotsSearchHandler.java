@@ -83,10 +83,14 @@ public class AnekdotsSearchHandler {
             String[] query = new String[themes.length];
             for (int key = 0; key < themes.length; key++) {
                 String tid = Integer.toString(themes[key]);
-                query[key] = "SELECT anek.id, anek.anekdot_text, " + tid + " AS tid, fr.id AS fid, fr.date_add " +
+                query[key] = "SELECT " +
+                        " anek.id, anek.anekdot_text, " +
+                        " " + tid + " AS tid, tm.fullname, tm.shortname, " +
+                        " fr.id AS fid, fr.date_add " +
                         "FROM search_results AS sr " +
                         "JOIN anekdots_" + tid + " AS anek ON anek.id = sr.anekdot_id " +
                         "LEFT JOIN favorites_results AS fr ON fr.theme_id = " + tid + " AND fr.anekdot_id = anek.id " +
+                        "LEFT JOIN themes AS tm ON tm.theme_id = " + tid + " " +
                         "WHERE sr.theme_id = " + tid;
             }
             String implodeQuery = TextUtils.join(" UNION ", query);
@@ -101,13 +105,16 @@ public class AnekdotsSearchHandler {
                     anekdotItem.setId(cursor.getInt(0));
                     anekdotItem.setText(cursor.getString(1));
                     anekdotItem.setTheme_id(cursor.getInt(2));
-                    //anekdotItem.setFavorite_id();
-                    //int id = cursor.getInt(0);
+                    anekdotItem.setFullname(cursor.getString(3));
+                    anekdotItem.setShortname(cursor.getString(4));
+                    if (cursor.getInt(5) > 0) {
+                        anekdotItem.setFavorite_id(cursor.getInt(5));
+                        anekdotItem.setFavorite_date(cursor.getString(6));
+                    }
                     anekdotItemCollection.addAnekdotItem(anekdotItem);
                 } while (cursor.moveToNext());
             }
             cursor.close();
-
             return anekdotItemCollection;
         } else {
             return null;

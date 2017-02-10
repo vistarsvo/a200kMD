@@ -9,13 +9,32 @@ public class AnekdotItem {
     private int num;
     private int favorite_id = 0;
     private String favorite_date;
+    private String fullname;
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getShortname() {
+        return shortname;
+    }
+
+    public void setShortname(String shortname) {
+        this.shortname = shortname;
+    }
+
+    private String shortname;
 
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
-        Log.d("Real ID", Integer.toString(id));
+        //Log.d("Real ID", Integer.toString(id));
         this.id = id;
     }
 

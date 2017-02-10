@@ -27,6 +27,7 @@ import com.seostudio.vistar.testproject.activities.SearchResultScreenActivity;
 import com.seostudio.vistar.testproject.handlers.AnekdotsSearchHandler;
 import com.seostudio.vistar.testproject.loaders.AsyncMenuLoader;
 import com.seostudio.vistar.testproject.models.MenuItem;
+import com.seostudio.vistar.testproject.models.collections.AnekdotItemCollection;
 import com.seostudio.vistar.testproject.models.collections.MenuItemCollection;
 
 import java.util.concurrent.TimeUnit;
@@ -215,9 +216,9 @@ public class SearchFragment extends Fragment
             }
             publishProgress("Готовим результаты...");
             cnt = AnekdotsSearchHandler.resultCount(SearchFragment.this.getContext());
-            publishProgress("Готовим результаты: " + String.valueOf(cnt));
-            AnekdotsSearchHandler.getResultCollection(SearchFragment.this.getContext());
             if (cnt > 0) {
+                publishProgress("Готовим результаты: " + String.valueOf(cnt));
+                AnekdotItemCollection.lastLoaded = AnekdotsSearchHandler.getResultCollection(SearchFragment.this.getContext());
                 SearchFragment.this.goSearchResultsScreen();
             }
             return null;

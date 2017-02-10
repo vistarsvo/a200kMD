@@ -30,7 +30,7 @@ public class SearchResultsRecyclerAdapter extends RecyclerView.Adapter<SearchRes
 
     @Override
     public void onBindViewHolder(SearchResultViewHolders holder, int position) {
-        holder.themeName.setText(Integer.toString(anekdotItems.get(position).getTheme_id()));
+        holder.themeName.setText(anekdotItems.get(position).getFullname());
         holder.anekdotText.setText(anekdotItems.get(position).getText());
         //int drawableResourceId = context.getResources().getIdentifier("chapter_" + Integer.toString(itemList.get(position).getId()), "mipmap", context.getPackageName());
         //holder.itemPicture.setImageResource(drawableResourceId);
