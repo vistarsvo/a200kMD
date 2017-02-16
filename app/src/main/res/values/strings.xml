@@ -33,5 +33,22 @@
     <string name="whatToSearch">Что искать?</string>
     <string name="SearchAn">Поиск анекдота</string>
     <string name="stop">Остановить</string>
+    <string name="optThemeConfig">Настройки отображения</string>
+    <string name="optionsEnableSBar">Полоса прокрутки</string>
+    <string name="opFingerSize">Размер текста жестом</string>
+
+
+    <string-array name="portrait_menu_sizes">
+        <item id="2">2</item>
+        <item id="3">3</item>
+        <item id="4">4</item>
+    </string-array>
+    <string-array name="album_menu_sizes">
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
 
 </resources>

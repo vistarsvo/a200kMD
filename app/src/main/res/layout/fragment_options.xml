@@ -1,136 +1,263 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context="com.seostudio.vistar.testproject.fragments.OptionsFragment">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardCornerRadius="1dp"
-            card_view:cardUseCompatPadding="true"
-            card_view:cardElevation="2dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            card_view:cardBackgroundColor="@color/white_trans80"
-            >
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"  >
-
-                <TextView
-                    android:text="@string/switchingAnekdots"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/readingOptTextView" />
-
-                <CheckBox
-                    android:text="@string/opEnableSwap"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:id="@+id/optionsEnableSwap" />
-                <CheckBox
-                    android:text="@string/opEnableSide"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:id="@+id/optionsEnableScreenSides" />
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardCornerRadius="1dp"
-            card_view:cardUseCompatPadding="true"
-            card_view:cardElevation="2dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            card_view:cardBackgroundColor="@color/white_trans80"
-            >
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"  >
-
-                <TextView
-                    android:text="@string/otherOptions"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/otherOptTextView" />
-                <CheckBox
-                    android:text="@string/opEnableCensor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:id="@+id/optionsEnableCensor" />
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-
-        <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        card_view:cardCornerRadius="1dp"
-        card_view:cardUseCompatPadding="true"
-        card_view:cardElevation="2dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        card_view:cardBackgroundColor="@color/white_trans80"
-        >
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"  >
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
-            <TextView
-                android:text="@string/themesOptions"
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/themesOptions" />
-            <!-- ТУТ БУДУТ ТЕМЫ -->
+                card_view:cardCornerRadius="@dimen/opt_card_corner_radius"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardElevation="@dimen/opt_card_elevation"
+                android:layout_marginLeft="@dimen/opt_card_lr_margin"
+                android:layout_marginRight="@dimen/opt_card_lr_margin"
+                android:layout_marginTop="@dimen/opt_card_tb_margin"
+                android:layout_marginBottom="@dimen/opt_card_tb_margin_half"
+                card_view:cardBackgroundColor="@color/white_trans80"
+                card_view:contentPadding="@dimen/opt_card_padding"
+                android:id="@+id/CardOptAnSwitch">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"  >
+
+                    <TextView
+                        android:text="@string/switchingAnekdots"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/readingOptTextView"
+                        android:textColor="@color/nicelightblue_text_header"/>
+
+                    <CheckBox
+                        android:text="@string/opEnableSwap"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:id="@+id/optionsEnableSwap"
+                        android:textColor="@color/nicelightblue_text" />
+                    <CheckBox
+                        android:text="@string/opEnableSide"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:id="@+id/optionsEnableScreenSides"
+                        android:textColor="@color/nicelightblue_text" />
+
+                    <CheckBox
+                        android:text="@string/optionsEnableSBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/optionsEnableSeekBar" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="@dimen/opt_card_corner_radius"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardElevation="@dimen/opt_card_elevation"
+                android:layout_marginLeft="@dimen/opt_card_lr_margin"
+                android:layout_marginRight="@dimen/opt_card_lr_margin"
+                android:layout_marginTop="@dimen/opt_card_tb_margin_half"
+                android:layout_marginBottom="@dimen/opt_card_tb_margin_half"
+                card_view:cardBackgroundColor="@color/white_trans80"
+                card_view:contentPadding="@dimen/opt_card_padding"
+                android:id="@+id/CardOptVisualize">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="@string/optThemeConfig"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/themeMenuTextView"
+                        android:textColor="@color/nicelightblue_text_header" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="Колонок меню"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView2"
+                            android:layout_weight="1" />
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/spinner3"
+                            android:entries="@array/portrait_menu_sizes"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView4"
+                            android:layout_weight="1"
+                            tools:text="Размер текста меню" />
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/spinner4"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="@dimen/opt_card_corner_radius"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardElevation="@dimen/opt_card_elevation"
+                android:layout_marginLeft="@dimen/opt_card_lr_margin"
+                android:layout_marginRight="@dimen/opt_card_lr_margin"
+                android:layout_marginTop="@dimen/opt_card_tb_margin_half"
+                android:layout_marginBottom="@dimen/opt_card_tb_margin_half"
+                card_view:cardBackgroundColor="@color/white_trans80"
+                card_view:contentPadding="@dimen/opt_card_padding"
+                android:id="@+id/CardOptOther">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="@string/otherOptions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/otherOptTextView"
+                        android:textColor="@color/nicelightblue_text_header" />
+
+                    <CheckBox
+                        android:text="@string/opFingerSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/checkBox2" />
+
+                    <CheckBox
+                        android:text="@string/opEnableCensor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:id="@+id/optionsEnableCensor"
+                        android:textColor="@color/nicelightblue_text" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                card_view:cardCornerRadius="@dimen/opt_card_corner_radius"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardElevation="@dimen/opt_card_elevation"
+                android:layout_marginLeft="@dimen/opt_card_lr_margin"
+                android:layout_marginRight="@dimen/opt_card_lr_margin"
+                android:layout_marginTop="@dimen/opt_card_tb_margin_half"
+                android:layout_marginBottom="@dimen/opt_card_tb_margin"
+                card_view:cardBackgroundColor="@color/white_trans80"
+                card_view:contentPadding="@dimen/opt_card_padding"
+                android:id="@+id/CardOptThemes">
+
+                <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                    <TextView
+                    android:text="@string/themesOptions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/themesOptions"
+                    android:textColor="@color/nicelightblue_text_header" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageButton
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@mipmap/chapter_22"
+                            android:id="@+id/imageButton8"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:scaleType="fitCenter" />
+
+                        <ImageButton
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@mipmap/chapter_2"
+                            android:id="@+id/imageButton7"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:scaleType="fitCenter" />
+
+                        <ImageButton
+                            android:layout_height="match_parent"
+                            app:srcCompat="@mipmap/chapter_12"
+                            android:id="@+id/imageButton6"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:scaleType="fitCenter" />
+                    </LinearLayout>
+
+            </LinearLayout>
+
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </RelativeLayout>

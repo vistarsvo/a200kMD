@@ -71,6 +71,10 @@ public class PreferencesManager {
         return this.mSharedPreferences.getString("key", "");
     }
 
+    public String getString(String key, String def) {
+        return this.mSharedPreferences.getString("key", def);
+    }
+
     public boolean setString(String key, String value) {
         return this.mSharedPreferences.edit().putString(key, value).commit();
     }

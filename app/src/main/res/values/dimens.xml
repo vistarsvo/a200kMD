@@ -19,4 +19,14 @@
     <dimen name="app_name_text_size">14sp</dimen>
     <dimen name="item_margin">8dp</dimen>
     <dimen name="item_elevation">4dp</dimen>
+
+    <!-- OPTIONS -->
+    <dimen name="opt_card_padding">8dp</dimen>
+    <dimen name="opt_card_tb_padding">8dp</dimen>
+    <dimen name="opt_card_lr_margin">16dp</dimen>
+    <dimen name="opt_card_tb_margin">16dp</dimen>
+    <dimen name="opt_card_tb_margin_half">8dp</dimen>
+    <dimen name="opt_card_corner_radius">1dp</dimen>
+    <dimen name="opt_card_elevation">1dp</dimen>
+
 </resources>

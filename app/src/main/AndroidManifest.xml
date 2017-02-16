@@ -7,12 +7,12 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/MyTheme">
+        android:theme="@style/NiceLightBlue">
         <activity
             android:name=".activities.StartScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/MyTheme">
+            android:theme="@style/NiceLightBlue">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,22 +23,23 @@
             android:name=".activities.IntroScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/MyTheme" />
+            android:theme="@style/NiceLightBlue" />
         <activity
             android:name=".activities.MenuScreenActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:theme="@style/NiceLightBlue" />
         <activity
             android:name=".activities.SingleReadActivity"
             android:label="@string/title_activity_single_read"
-            android:theme="@style/MyTheme" />
+            android:theme="@style/NiceLightBlue" />
         <activity
             android:name=".activities.CustomShareActivity"
             android:label="@string/title_activity_custom_share"
-            android:theme="@style/MyTheme" />
+            android:theme="@style/NiceLightBlue" />
         <activity
             android:name=".activities.SearchResultScreenActivity"
             android:label="@string/title_activity_custom_share"
-            android:theme="@style/MyTheme" />
+            android:theme="@style/NiceLightBlue" />
     </application>
 
 </manifest>

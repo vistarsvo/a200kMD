@@ -44,13 +44,6 @@ public class AnekdotsSearchHandler {
             db.beginTransaction();
             do {
                 int id = cursor.getInt(0);
-                /*
-                query = "INSERT INTO search_results " +
-                        "(anekdot_id, theme_id) " +
-                        "VALUES " +
-                        "( " + Integer.toString(id) + ", " + Integer.toString(themeId) + ") ";
-                db.execSQL(query);
-                */
                 stmt.bindLong(1, id);
                 stmt.bindLong(2, themeId);
                 long entryID = stmt.executeInsert();
@@ -138,5 +131,4 @@ public class AnekdotsSearchHandler {
         cursor.close();
         return themesArray;
     }
-
 }

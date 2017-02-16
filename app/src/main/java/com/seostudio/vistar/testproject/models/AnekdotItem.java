@@ -1,7 +1,5 @@
 package com.seostudio.vistar.testproject.models;
 
-import android.util.Log;
-
 public class AnekdotItem {
     private int id;
     private int theme_id;
@@ -34,7 +32,6 @@ public class AnekdotItem {
     }
 
     public void setId(int id) {
-        //Log.d("Real ID", Integer.toString(id));
         this.id = id;
     }
 

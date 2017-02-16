@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="NiceLightBlue.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+  <style name="NiceLightBlue.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+  <style name="NiceLightBlue" parent="@style/_NiceLightBlue"/>
+
+  <style name="_NiceLightBlue" parent="Theme.AppCompat.Light.NoActionBar">
+
+    <item name="windowActionBar">false</item>
+    <item name="windowActionBarOverlay">true</item>
+    <item name="windowNoTitle">true</item>
+
+    <item name="android:editTextStyle">@style/EditTextNiceLightBlue</item>
+
+    <item name="android:textColorHighlight">#9933b5e5</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewNiceLightBlue</item>
+
+    <item name="android:checkboxStyle">@style/CheckBoxNiceLightBlue</item>
+
+    <item name="android:radioButtonStyle">@style/RadioButtonNiceLightBlue</item>
+
+    <item name="android:buttonStyle">@style/ButtonNiceLightBlue</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonNiceLightBlue</item>
+
+    <item name="android:spinnerStyle">@style/SpinnerNiceLightBlue</item>
+
+    <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemNiceLightBlue</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarNiceLightBlue</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarNiceLightBlue</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarNiceLightBlue</item>
+
+    <item name="android:listViewStyle">@style/ListViewNiceLightBlue</item>
+
+    <item name="android:listViewWhiteStyle">@style/ListViewNiceLightBlue.White</item>
+
+    <item name="android:spinnerItemStyle">@style/SpinnerItemNiceLightBlue</item>
+    <item name="colorAccent">@color/nicelightblue_color</item>
+
+  </style>
+
+</resources>

@@ -11,6 +11,7 @@
     <color name="indicator_unselected">#4D000000</color>
     <color name="bg_light">#FAFAFA</color>
 
+    <!-- Basic Color palette -->
     <color name="blue_grey">#455a64</color>
     <color name="red">#F44336</color>
     <color name="pink">#E91E63</color>
@@ -32,5 +33,13 @@
 
     <color name="toolbar_color">#73c5e9</color>
     <color name="tab_color">#4a9fc4</color>
+
+    <color name="nicelightblue_toolbar_color">#73c5e9</color>
+    <color name="nicelightblue_tab_color">#4a9fc4</color>
+    <color name="nicelightblue_icons">#004461</color>
+    <color name="nicelightblue_text_header">#004461</color>
+    <color name="nicelightblue_text">#333333</color>
+
+
 
 </resources>

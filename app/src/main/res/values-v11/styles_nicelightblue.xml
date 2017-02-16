@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="AutoCompleteTextViewNiceLightBlue" parent="android:Widget.Holo.Light.AutoCompleteTextView">
+      <item name="android:dropDownSelector">@drawable/nicelightblue_list_selector_holo_light</item>
+	    <item name="android:background">@drawable/nicelightblue_edit_text_holo_light</item>
+  </style>
+
+  <style name="ButtonNiceLightBlue" parent="android:Widget.Holo.Light.Button">
+	  <item name="android:background">@drawable/nicelightblue_btn_default_holo_light</item>
+  </style>
+
+  <style name="ImageButtonNiceLightBlue" parent="android:Widget.Holo.Light.ImageButton">
+	  <item name="android:background">@drawable/nicelightblue_btn_default_holo_light</item>
+  </style>
+
+  <style name="SpinnerNiceLightBlue" parent="android:Widget.Holo.Light.Spinner">
+      <item name="android:background">@drawable/nicelightblue_spinner_background_holo_light</item>
+      <item name="android:dropDownSelector">@drawable/nicelightblue_list_selector_holo_light</item>
+  </style>
+
+  <style name="ProgressBarNiceLightBlue" parent="android:Widget.Holo.Light.ProgressBar.Horizontal">
+      <item name="android:progressDrawable">@drawable/nicelightblue_progress_horizontal_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/nicelightblue_progress_indeterminate_horizontal_holo_light</item>
+  </style>
+
+  <style name="SeekBarNiceLightBlue" parent="android:Widget.Holo.Light.SeekBar">
+      <item name="android:progressDrawable">@drawable/nicelightblue_scrubber_progress_horizontal_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/nicelightblue_scrubber_progress_horizontal_holo_light</item>
+      <item name="android:thumb">@drawable/nicelightblue_scrubber_control_selector_holo_light</item>
+  </style>
+
+  <style name="RatingBarNiceLightBlue" parent="android:Widget.Holo.Light.RatingBar">
+      <item name="android:progressDrawable">@drawable/nicelightblue_ratingbar_full_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/nicelightblue_ratingbar_full_holo_light</item>
+  </style>
+
+</resources>
